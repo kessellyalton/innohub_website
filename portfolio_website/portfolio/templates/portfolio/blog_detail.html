@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ post.title }}</h1>
+    <p><strong>Author:</strong> {{ post.author }}</p>
+    <p><strong>Posted on:</strong> {{ post.date_posted|date:"M d, Y" }}</p>
+
+    {% if post.image %}
+    <div class="blog-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="width:100%; height:auto;">
+    </div>
+    {% endif %}
+
+    <div class="blog-content mt-4">
+        {{ post.content|safe }}
+    </div>
+
+    <p class="mt-4">
+        <a href="{% url 'post_share' post.pk %}" class="btn btn-primary">
+            Share this post
+        </a>
+    </p>
+</div>
+{% endblock %}

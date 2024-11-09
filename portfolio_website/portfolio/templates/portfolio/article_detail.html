@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} - InnoHub Liberia{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h1>{{ article.title }}</h1>
+            <p><strong>Category:</strong> {{ article.get_category_display }}</p>
+            <p><strong>Published on:</strong> {{ article.date_posted|date:"M d, Y" }}</p>
+            {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid my-4">
+            {% endif %}
+            <div>{{ article.content|safe }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

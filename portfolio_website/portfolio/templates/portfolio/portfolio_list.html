@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Portfolio - Alton Vanie Kesselly{% endblock %}
+
+{% block content %}
+
+<!-- Include Boxicons CDN -->
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio pt-10">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title text-center">
+      <h2>Portfolio</h2>
+      <p>My portfolio showcases a diverse range of projects that reflect my expertise and commitment to impactful, high-quality solutions.</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div id="portfolio-filters" class="d-flex justify-content-center flex-wrap mb-4" data-aos="fade-up" data-aos-delay="100">
+      <button data-filter="*" class="filter-btn filter-active">All</button>
+      <button data-filter=".filter-consulting" class="filter-btn">Educational Consulting and Leadership</button>
+      <button data-filter=".filter-research" class="filter-btn">Research, Data Analysis, and Policy Development</button>
+      <button data-filter=".filter-tech" class="filter-btn">Technology and Digital Platform Development</button>
+      <button data-filter=".filter-stem" class="filter-btn">STEM Education and International Collaboration</button>
+    </div>
+
+    <!-- Portfolio Items -->
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+      {% for portfolio in portfolios %}
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item filter-{{ portfolio.category|slugify }}">
+        <div class="portfolio-wrap" style="transform: scale(0.8);"> <!-- Reduce card size by scaling down -->
+          <div class="portfolio-img">
+            <a href="{% url 'portfolio-detail' portfolio.pk %}">
+              <img src="{{ portfolio.image.url }}" class="img-fluid" alt="{{ portfolio.title }}" style="cursor: pointer;">
+            </a>
+          </div>
+          <div class="portfolio-info">
+            <h4>{{ portfolio.title }}</h4>
+            <p>{{ portfolio.get_category_display }}</p>
+            <div class="portfolio-links">
+              <a href="{{ portfolio.image.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ portfolio.title }}">
+                <i class="bx bx-plus"></i>
+              </a>
+              <a href="{% url 'portfolio-detail' portfolio.pk %}" class="details-link" title="More Details">
+                <i class="bx bx-link"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Filter button styling */
+  .filter-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .filter-btn:hover, .filter-btn.filter-active {
+    background-color: #333;
+    color: #fff;
+  }
+
+  /* Portfolio item styling */
+  .portfolio-item {
+    margin-bottom: 20px;
+    width: 30%; /* Reduce the width of each portfolio item */
+  }
+
+  .portfolio-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transform: scale(0.5); /* Reduce card size by scaling down */
+  }
+
+  .portfolio-wrap:hover {
+    transform: scale(0.85); /* Slightly scale on hover */
+  }
+
+  .portfolio-img img {
+    width: 100%;
+    height: auto;
+  }
+
+  .portfolio-info {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .portfolio-info h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .portfolio-info p {
+    font-size: 0.85em;
+    color: #6c757d;
+  }
+
+  /* Icon styling */
+  .portfolio-links {
+    margin-top: 8px;
+  }
+
+  .portfolio-links a {
+    color: #333;
+    font-size: 1.5em;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+  }
+
+  .portfolio-links a:hover {
+    color: #007bff;
+  }
+
+  .bx-plus, .bx-link {
+    font-size: 2em;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll("#portfolio-filters .filter-btn");
+    const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        filterButtons.forEach(btn => btn.classList.remove("filter-active"));
+        button.classList.add("filter-active");
+
+        const filterValue = button.getAttribute("data-filter");
+        portfolioItems.forEach(item => {
+          if (filterValue === "*" || item.classList.contains(filterValue.substring(1))) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% endblock %}

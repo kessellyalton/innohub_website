@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Me - Alton Vanie Kesselly{% endblock %}
+
+{% block content %}
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<section class="about py-5 pt-10" style="font-family: 'Nunito Sans', sans-serif;">
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-center mb-4 mt-10" data-aos="fade-right">
+                <img src="{% static 'assets/img/alton-3.JPG' %}" class="img-fluid rounded-circle shadow" alt="Alton Vanie Kesselly">
+                <h3 class="mt-3 display-6 fw-bold">Alton Vanie Kesselly</h3>
+                <p class="text-muted">Educator, Research Scientist & Data Analyst</p>
+            </div>
+            <div class="col-lg-8" data-aos="fade-left">
+                <h2 class="display-5 fw-bold mb-3">Welcome to My Professional Hub</h2>
+                <p class="lead fst-italic">
+                    A highly dedicated and accomplished professional with over eight years of experience across education, mathematics, research science, and data analysis. Known for exceptional analytical skills and a strategic mindset, I bring a rigorous, evidence-based approach to every project, ensuring outcomes that are both impactful and sustainable. My journey has been marked by a passion for transforming complex data into actionable insights, with a focus on driving educational reform, enhancing program effectiveness, and fostering innovative solutions to pressing challenges.
+                </p>
+                <p>Throughout my career, I have demonstrated a unique ability to navigate and resolve multifaceted issues, often in high-stakes environments. Whether advising on educational policy, leading data-driven research initiatives, or consulting on curriculum development, I strive to make a tangible difference, advocating for evidence-based practices that improve learning outcomes and empower institutions.</p>
+                <p>
+                    At the core of my professional journey lies a profound dedication to applying my skills and expertise in dynamic and evolving contexts. I am passionate about continuous learning and adapting my approach to meet new challenges and demands. Currently open to freelance and consulting opportunities, I am excited to collaborate on projects that require a creative and analytical perspective, whether in education, research, or digital innovation. Ready to bring my unique blend of creativity, strategic acumen, and technical proficiency, I am here to help you drive meaningful change and realize your vision.
+                </p>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="services mt-5">
+            <h3 class="fw-bold text-center mb-4">My Services</h3>
+            <p class="text-center text-muted">Explore the specialized services I offer to educational institutions, policymakers, and organizations.</p>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up">
+                    <div class="service-box p-4 bg-light shadow-sm rounded">
+                        <h5 class="fw-bold">Educational Consulting & Leadership</h5>
+                        <p>Strategic planning, program development, curriculum evaluation, and professional training to enhance leadership and educational continuity, especially in crisis situations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-box p-4 bg-light shadow-sm rounded">
+                        <h5 class="fw-bold">Research, Data Analysis & Policy Development</h5>
+                        <p>Conducting research, policy analysis, and data-driven recommendations for educational reforms and decision-making.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-box p-4 bg-light shadow-sm rounded">
+                        <h5 class="fw-bold">Technology & Digital Platform Development</h5>
+                        <p>Developing educational platforms, integrating technology, and deploying machine learning for innovative learning solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-box p-4 bg-light shadow-sm rounded">
+                        <h5 class="fw-bold">STEM Education & International Collaboration</h5>
+                        <p>Promoting STEM, fostering international partnerships, and enhancing STEM learning in diverse educational settings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bio and Personal Information Section -->
+        <div class="bio mt-5">
+            <h3 class="fw-bold text-center mb-4">About Me</h3>
+            <p class="fst-italic text-center">
+                Welcome to my portfolio website! Here, you can explore my qualifications, activities, and insights across a diverse range of interests, including scientific research, data analysis, education, politics, sports, music, and web/app development.
+            </p>
+            <ul class="list-unstyled fst-italic text-center mb-5">
+                <li><i class="bi bi-check-circle text-primary"></i> A comprehensive resume detailing my expertise</li>
+                <li><i class="bi bi-check-circle text-primary"></i> A rich portfolio showcasing my work</li>
+                <li><i class="bi bi-check-circle text-primary"></i> Information about the specialized services I offer</li>
+            </ul>
+            <p class="text-center">
+                Additionally, my blog offers insights into my interests, perspectives on current world events, and innovations. <span style="color: blue; font-weight: bold;">Dive in to learn more!</span>
+            </p>
+        </div>
+
+        <!-- Personal Details Section -->
+        <div class="personal-details mt-5">
+            <h3 class="fw-bold text-center mb-4">Personal Details</h3>
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-chevron-right"></i> <strong>Place of Birth:</strong> Kolahun, Lofa County</li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <a href="mailto:kessellyalton1@gmail.com">kessellyalton1@gmail.com</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> +231 888 757477</li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> Old CID Road, Mamba Point, Monrovia</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-chevron-right"></i> <strong>Years of Work:</strong> 10</li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> Master</li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <a href="mailto:kessellyalton1@gmail.com">kessellyalton1@gmail.com</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> Available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5">
+            <p>For more information, I invite you to explore my resume, portfolio, services, and blog on my website. I welcome all inquiries and feedback through the contact page. <span style="color: blue; font-weight: bold;">Dive in and let's connect!</span></p>
+        </div>
+    </div>
+</section>
+
+<!-- Custom CSS for additional styling -->
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+    }
+    .service-box {
+        transition: transform 0.3s;
+    }
+    .service-box:hover {
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}

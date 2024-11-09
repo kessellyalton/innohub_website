@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Homepage - Alton Vanie Kesselly{% endblock %}
+
+{% block content %}
+<header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary" style="height: 100vh;">
+    <div class="page-header-ui-content h-100 d-flex align-items-center">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center h-100">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h1 class="page-header-ui-title">Transforming Complex Data into Intelligent Solutions</h1>
+                    <p class="page-header-ui-text mb-5">Welcome to my portfolio, where I transform complex data into powerful, intelligent solutions that make an impact.</p>
+                    <a class="btn btn-teal fw-500 me-2 btn-jump" href="{% url 'portfolio-list' %}"><i class="fas fa-swimmer me-1"></i> Jump In</a>
+                    <a class="btn btn-link fw-500 btn-learn" href="{% url 'about' %}"><i class="fas fa-book-open me-1"></i> Learn More</a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="100" style="height: 100vh; overflow: hidden;">
+                    <img class="img-fluid rounded" src="{% static 'assets/img/illustrations/mo.jpg' %}" alt="Professional portrait of Alton Vanie Kesselly" style="object-fit: cover; height: 100vh; width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}

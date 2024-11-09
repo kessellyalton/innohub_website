@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ portfolio.title }} - Portfolio Details{% endblock %}
+
+{% block content %}
+<section id="portfolio-details" class="portfolio-details pt-10">
+  <div class="container" data-aos="fade-up">
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs mb-4">
+      <a href="{% url 'portfolio-list' %}">Portfolio</a> / <span>{{ portfolio.title }}</span>
+    </div>
+
+    <!-- Portfolio Details -->
+    <div class="row gy-4">
+      <!-- Image Section -->
+      <div class="col-lg-6">
+        <div class="portfolio-img-wrapper">
+          <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" class="img-fluid rounded shadow">
+        </div>
+      </div>
+
+      <!-- Information Section -->
+      <div class="col-lg-6">
+        <div class="portfolio-info">
+          <h3 class="fw-bold mb-3">{{ portfolio.title }}</h3>
+          <ul class="list-unstyled mb-4">
+            <li><strong>Category:</strong> {{ portfolio.get_category_display }}</li>
+            <li><strong>Client:</strong> {{ portfolio.client }}</li>
+            <li><strong>Project Date:</strong> {{ portfolio.project_date }}</li>
+            <li><strong>Project URL:</strong> <a href="{{ portfolio.project_url }}" target="_blank">{{ portfolio.project_url }}</a></li>
+          </ul>
+          <div class="portfolio-description">
+            <h4>Project Description</h4>
+            <p>{{ portfolio.description|safe }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .portfolio-img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .portfolio-info h3 {
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+
+  .portfolio-info ul li {
+    margin-bottom: 10px;
+  }
+
+  .portfolio-description h4 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+</style>
+{% endblock %}
