@@ -13,7 +13,7 @@ urlpatterns = [
     path('get-started/', views.get_started, name='get_started'),
     path('learn-more/', views.learn_more, name='learn_more'),
     path('about/', views.about, name='about'),  # Add this line
-    path('press/', views.press, name='press'),
+
     path('portfolio/', views.portfolio_list, name='portfolio-list'),
     path('portfolio/<int:pk>/', views.portfolio_detail, name='portfolio-detail'),
     path('<int:pk>/', views.portfolio_detail, name='portfolio-detail'),
@@ -50,27 +50,18 @@ urlpatterns = [
     path('upload/', views.upload_pdf, name='upload_pdf'),
     path('pdfs/', views.pdf_list, name='pdf_list'),
     path('download/<int:pk>/', views.download_pdf, name='download_pdf'),
-    path('article/<int:article_id>/', views.article_detail, name='article_detail'),
-    path('category/<str:category_name>/', views.category_articles, name='category_articles'),
-    path('<int:post_id>/share/', views.post_share, name='post_share'),
-    path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),
 
 
 
 
-    path('press/', views.press_view, name='press_home'),
+
+    path('press/', views.press_view, name='press-home'),
     path('press/article/<int:article_id>/', views.article_detail, name='article_detail'),
     path('press/category/<str:category_name>/', views.category_articles, name='category_articles'),
 
-
-
-
-
-
-
-
-
-
-
-
+    path('documents/', views.documents_view, name='documents'),
+    path('download_resume/<int:pk>/', views.download_resume, name='download_resume'),
+    path('download_pdf/<int:pk>/', views.download_pdf, name='download_pdf'),
 ]
+
+

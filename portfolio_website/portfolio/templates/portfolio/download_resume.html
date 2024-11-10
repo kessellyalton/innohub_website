@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Documents{% endblock %}
+
+{% block content %}
+<section id="documents" class="documents">
+  <div class="container">
+    <div class="section-title">
+      <h2>Available Documents</h2>
+      <p>Download important documents such as reports, presentations, and more.</p>
+    </div>
+
+    <div class="row">
+      {% for document in documents %}
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ document.description }}</h5>
+            <p class="card-text">Uploaded on: {{ document.uploaded_at|date:"M d, Y" }}</p>
+            <a href="{% url 'download_document' document.id %}" class="btn btn-primary">Download {{ document.file.name }}</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No documents available for download at this time.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

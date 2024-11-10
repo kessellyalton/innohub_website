@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}{{ article.title }} - InnoHub Liberia{% endblock %}
+{% load static %}  <!-- Ensure this is at the top of your file -->
+
+{% block title %}{{ article.title }} - Alton Vanie Kesselly{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-10">
     <div class="row">
         <div class="col-md-8 mx-auto">
             <h1>{{ article.title }}</h1>
@@ -14,5 +16,25 @@
             <div>{{ article.content|safe }}</div>
         </div>
     </div>
+
+    <!-- Related Articles Section -->
+    {% if related_articles %}
+    <div class="related-articles mt-5">
+        <h5>Related Articles</h5>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for related in related_articles %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% if related.image %}{{ related.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}"
+                         class="card-img-top" alt="{{ related.title }}" style="object-fit: cover; max-height: 150px;">
+                    <div class="card-body">
+                        <h6 class="card-title"><a href="{% url 'article_detail' related.id %}" class="text-dark">{{ related.title }}</a></h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

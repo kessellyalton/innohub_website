@@ -9,9 +9,12 @@
         {% for article in page_obj %}
         <div class="col">
             <div class="card h-100 shadow-sm">
-                <img src="{% if article.image %}{{ article.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}" class="card-img-top" alt="{{ article.title }}" style="object-fit: cover; max-height: 150px;">
+                <img src="{% if article.image %}{{ article.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}"
+                     class="card-img-top" alt="{{ article.title }}" style="object-fit: cover; max-height: 150px;" loading="lazy">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{% url 'article_detail' article.id %}" class="text-dark">{{ article.title }}</a></h5>
+                    <h5 class="card-title" style="min-height: 50px;">
+                        <a href="{% url 'article_detail' article.id %}" class="text-dark">{{ article.title }}</a>
+                    </h5>
                     <p class="card-text">{{ article.content|striptags|truncatewords:15 }}</p>
                     <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Read more</a>
                 </div>
@@ -19,18 +22,47 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Pagination Controls -->
     {% if page_obj.has_other_pages %}
-        <div class="pagination mt-4">
+    <div class="pagination mt-4 d-flex justify-content-center">
+        <ul class="pagination">
             {% if page_obj.has_previous %}
-                <a href="?page=1">First</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            <li class="page-item">
+                <a href="?page=1" class="page-link" aria-label="First" title="First Page">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous" title="Previous Page">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
             {% endif %}
-            <span class="current-page">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            <li class="page-item">
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next" title="Next Page">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" aria-label="Last" title="Last Page">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
             {% endif %}
-        </div>
+        </ul>
+    </div>
     {% endif %}
 </div>
+
+<!-- Feather icons script -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace();
+</script>
+
 {% endblock %}
