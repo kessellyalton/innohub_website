@@ -13,13 +13,18 @@ urlpatterns = [
     path('get-started/', views.get_started, name='get_started'),
     path('learn-more/', views.learn_more, name='learn_more'),
     path('about/', views.about, name='about'),  # Add this line
-    path('press/', views.press, name='press'),
+
     path('portfolio/', views.portfolio_list, name='portfolio-list'),
     path('portfolio/<int:pk>/', views.portfolio_detail, name='portfolio-detail'),
     path('<int:pk>/', views.portfolio_detail, name='portfolio-detail'),
 
     path('blog/<int:pk>/', views.blog_detail, name='blog-detail'),
     path('blog/<int:pk>/share/', views.post_share, name='post_share'),
+
+
+    path('documents/', views.documents_view, name='documents'),
+    path('documents/download/resume/<int:pk>/', views.download_resume, name='download_resume'),
+    path('documents/download/pdf/<int:pk>/', views.download_pdf, name='download_pdf'),
 
 
 

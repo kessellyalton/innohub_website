@@ -1,47 +1,47 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Press - InnoHub Liberia{% endblock %}
+{% block title %}Press - Alton Vanie Kesselly{% endblock %}
 
 {% block content %}
-<section class="bg-light py-5 mt-5 mb-5">
-    <div class="container-fluid px-lg-5 px-md-4 px-3">
+<section class="bg-light py-5 mt-10 mb-5" style="margin-top: 8rem;"> <!-- Added extra margin-top here -->
+    <div class="container px-5">
+
         <!-- Featured Story -->
         {% if featured_post %}
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Featured Story</h6>
-            <a class="text-arrow-icon small" href="{% url 'category_articles' featured_post.category %}">
-                More headlines <i data-feather="arrow-right"></i>
-            </a>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="row g-0">
-                <div class="col-lg-6 p-lg-5 p-4">
-                    <span class="badge bg-primary mb-3">{{ featured_post.get_category_display }}</span>
-                    <h2><a href="{% url 'article_detail' featured_post.id %}" class="text-dark">{{ featured_post.title }}</a></h2>
-                    <p>{{ featured_post.content|striptags|truncatewords:40 }}</p>
-                    <a href="{% url 'article_detail' featured_post.id %}" class="btn btn-primary">Read more</a>
-                </div>
-                <div class="col-lg-6 d-none d-lg-flex align-items-center"
-                     style="background-image: url('{% if featured_post.image %}{{ featured_post.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}'); background-size: cover; background-position: center; height: 100%;">
+        <div class="featured-story mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="section-heading fw-bold">Featured Story</h3>
+                <a class="text-arrow-icon small" href="{% url 'category_articles' featured_post.category %}">
+                    More headlines <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+            <div class="card mb-4 shadow-lg border-0 rounded-3 overflow-hidden">
+                <div class="row g-0">
+                    <div class="col-lg-6 p-lg-5 p-4">
+                        <span class="badge bg-primary mb-3">{{ featured_post.get_category_display }}</span>
+                        <h2 class="fw-bold"><a href="{% url 'article_detail' featured_post.id %}" class="text-dark">{{ featured_post.title }}</a></h2>
+                        <p class="text-muted">{{ featured_post.content|striptags|truncatewords:40 }}</p>
+                        <a href="{% url 'article_detail' featured_post.id %}" class="btn btn-primary mt-3">Read more</a>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block image-background" style="background-image: url('{% if featured_post.image %}{{ featured_post.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}');"></div>
                 </div>
             </div>
         </div>
         {% endif %}
 
         <!-- Top Stories -->
-        <div class="mb-4">
-            <h6 class="mb-0">Top Stories</h6>
-            <hr class="mb-4" />
+        <div class="top-stories mb-5">
+            <h3 class="section-heading fw-bold text-center mb-4">Top Stories</h3>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 {% for story in top_stories %}
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="{% if story.image %}{{ story.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}" class="card-img-top" alt="{{ story.title }}" style="object-fit: cover; max-height: 200px;">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <img src="{% if story.image %}{{ story.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}" class="card-img-top img-responsive" alt="{{ story.title }}">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'article_detail' story.id %}" class="text-dark">{{ story.title }}</a></h5>
-                            <p class="card-text">{{ story.content|striptags|truncatewords:20 }}</p>
-                            <a href="{% url 'article_detail' story.id %}" class="btn btn-primary">Read more</a>
+                            <h5 class="card-title fw-bold"><a href="{% url 'article_detail' story.id %}" class="text-dark">{{ story.title }}</a></h5>
+                            <p class="card-text text-muted">{{ story.content|striptags|truncatewords:20 }}</p>
+                            <a href="{% url 'article_detail' story.id %}" class="btn btn-outline-primary btn-sm">Read more</a>
                         </div>
                     </div>
                 </div>
@@ -51,26 +51,94 @@
 
         <!-- Sections by Category -->
         {% for section, posts in sections.items %}
-        <div class="mb-5">
-            <h6 class="mb-0">{{ section }}</h6>
-            <hr class="mb-4" />
+        <div class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold">{{ section }}</h4>
+                <a href="{% url 'category_articles' section %}" class="text-arrow-icon small">View more <i data-feather="arrow-right"></i></a>
+            </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 {% for post in posts %}
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="{% if post.image %}{{ post.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}" class="card-img-top" alt="{{ post.title }}" style="object-fit: cover; max-height: 150px;">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <img src="{% if post.image %}{{ post.image.url }}{% else %}{% static 'default-image.jpg' %}{% endif %}" class="card-img-top img-responsive" alt="{{ post.title }}">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'article_detail' post.id %}" class="text-dark">{{ post.title }}</a></h5>
-                            <p class="card-text">{{ post.content|striptags|truncatewords:15 }}</p>
-                            <a href="{% url 'article_detail' post.id %}" class="btn btn-primary">Read more</a>
+                            <h5 class="card-title fw-bold"><a href="{% url 'article_detail' post.id %}" class="text-dark">{{ post.title }}</a></h5>
+                            <p class="card-text text-muted">{{ post.content|striptags|truncatewords:15 }}</p>
+                            <a href="{% url 'article_detail' post.id %}" class="btn btn-outline-primary btn-sm">Read more</a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <a href="{% url 'category_articles' section %}" class="text-arrow-icon small mt-2 d-block">View more <i data-feather="arrow-right"></i></a>
         </div>
         {% endfor %}
     </div>
 </section>
+
+<!-- Feather icons script -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace();
+</script>
+
+<style>
+    /* Styles for the newspaper/newsletter feel */
+    .section-heading {
+        font-family: 'Georgia', serif;
+        font-size: 1.75rem;
+    }
+
+    .img-responsive {
+        object-fit: cover;
+        height: 200px;
+        width: 100%;
+        border-radius: 0.25rem;
+    }
+
+    .image-background {
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+    }
+
+    .featured-story .card {
+        overflow: hidden;
+    }
+
+    .card-title a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .card-title a:hover {
+        color: #007bff;
+    }
+
+    /* Button styling */
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .text-arrow-icon i {
+        vertical-align: middle;
+    }
+
+    /* Enhanced padding and margin */
+    .top-stories .card, .category-section .card {
+        transition: transform 0.2s;
+    }
+
+    .top-stories .card:hover, .category-section .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+
 {% endblock %}
