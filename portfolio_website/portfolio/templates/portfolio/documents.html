@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Documents{% endblock %}
+
+{% block content %}
+<section id="documents" class="documents mt-5">
+  <div class="container">
+    <div class="section-title text-center mb-5">
+      <h2>Available Documents</h2>
+      <p class="font-italic fw-bold">Download important documents such as reports, presentations, lectures, and more.</p>
+    </div>
+
+    <div class="row">
+      <!-- Section for Resumes -->
+      <div class="col-12 mb-5">
+        <div class="row">
+          {% for resume in resumes %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title font-italic fw-bold">{{ resume.description }}</h5>
+                <p class="card-text text-muted">Uploaded on: {{ resume.uploaded_at|date:"M d, Y" }}</p>
+                <a href="{% url 'download_resume' resume.id %}" class="btn btn-primary">Download Resume</a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-center font-italic fw-bold">No resumes available for download at this time.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Section for PDF Files -->
+      <div class="col-12 mb-5">
+        <div class="row">
+          {% for pdf in pdfs %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title font-italic fw-bold">{{ pdf.title }}</h5>
+                <p class="card-text text-muted">Uploaded on: {{ pdf.uploaded_at|date:"M d, Y" }}</p>
+                <a href="{% url 'download_pdf' pdf.id %}" class="btn btn-primary">Download PDF</a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-center font-italic fw-bold">No PDF files available for download at this time.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

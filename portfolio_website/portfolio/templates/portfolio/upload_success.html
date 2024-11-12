@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Upload Success{% endblock %}
+
+{% block content %}
+<section id="upload-success" class="upload-success">
+  <div class="container">
+    <div class="section-title">
+      <h2>Upload Successful</h2>
+      <p>Your resume has been uploaded successfully!</p>
+      <p><a href="{% url 'resume' %}" class="btn btn-primary">Back to Resume Page</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

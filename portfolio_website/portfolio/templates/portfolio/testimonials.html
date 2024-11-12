@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Testimonials{% endblock %}
+
+{% block content %}
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<section id="testimonials" class="testimonials section-bg py-5 mt-10">
+  <div class="container">
+    <div class="section-title text-center mb-5">
+      <h2>Testimonials</h2>
+      <p>See what individuals and organizations are saying about the impact of my work.</p>
+    </div>
+
+    {% if testimonials %}
+    <div class="swiper testimonials-slider" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+        {% for testimonial in testimonials %}
+        <div class="swiper-slide">
+          <div class="testimonial-item p-4 shadow-lg">
+            <p class="quote">
+              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+              {{ testimonial.quote|safe }}
+              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+            {% if testimonial.image %}
+            <img src="{{ testimonial.image.url }}" class="testimonial-img rounded-circle mx-auto d-block mt-3" alt="{{ testimonial.author_name }}">
+            {% endif %}
+            <h3 class="author-name">{{ testimonial.author_name }}</h3>
+            <h4 class="author-title">{{ testimonial.author_title|safe }}</h4>
+            {% if testimonial.author_organization %}
+            <h4 class="author-organization">{{ testimonial.author_organization }}</h4>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+    {% else %}
+    <p class="text-center">No testimonials available.</p>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  /* Font and Card Styling */
+  .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.5em;
+    color: #333;
+  }
+
+  .testimonial-item {
+    background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+    padding: 24px;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.3s ease;
+  }
+
+  .testimonial-item:hover {
+    transform: scale(1.05);
+  }
+
+  .author-name {
+    font-weight: 600;
+    font-size: 1.4em;
+    color: #2c3e50;
+    margin-top: 15px;
+  }
+
+  .author-title, .author-organization {
+    font-weight: 400;
+    font-size: 1em;
+    color: #7f8c8d;
+    margin-top: 5px;
+  }
+
+  .quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #555;
+    font-size: 1.2em;
+    line-height: 1.7;
+  }
+
+  .testimonial-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 3px solid #00b8d4;
+  }
+
+  .quote-icon-left, .quote-icon-right {
+    color: #00b8d4;
+    font-size: 2em;
+  }
+
+  .swiper-pagination {
+    position: relative;
+    bottom: 10px;
+  }
+</style>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var swiper = new Swiper('.testimonials-slider', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: {
+        delay: 5000, // 5 seconds
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+  });
+</script>
+
+{% endblock %}

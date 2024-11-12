@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF List</title>
+</head>
+<body>
+    <h1>Important Documents</h1>
+    <h4>
+        Here you can easily download my theses, lectures, notes and other important documents.</h4>
+    <ul>
+        {% for pdf in pdfs %}
+            <li>
+                <a href="{% url 'download_pdf' pdf.pk %}">{{ pdf.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

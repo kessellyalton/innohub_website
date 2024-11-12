@@ -1,0 +1,42 @@
+/* static/css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background: #1e1e2f;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+section {
+    padding: 2em;
+}
+
+h1, h2 {
+    color: #1e1e2f;
+}
+
+.btn {
+    padding: 0.5em 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-jump {
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-jump:hover {
+    background-color: #007b7b; /* Darker teal */
+    transform: translateY(-2px);
+}

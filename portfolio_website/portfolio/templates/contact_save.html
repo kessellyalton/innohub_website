@@ -1,0 +1,238 @@
+<!-- about.html -->
+{% extends "base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+ <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Are you ready to elevate your project with expert knowledge in education, scientific research, or data
+            analysis? Let's discuss how we can work together to achieve your goals. Whether it's building educational
+            programs, conducting robust research, or extracting meaningful insights from data, I
+            am here to help. Please fill out the form below or reach out via email or phone—let’s make something
+            great happen.
+          </p>
+        </div>
+
+        <div class="row" data-aos="fade-in">
+
+          <div class="col-lg-5 d-flex align-items-stretch">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>Old CID Road, Mamba Point, Monrovia, Liberia</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>kessellyalton1@gmail.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+231 888 757477</p>
+              </div>
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d8282.38997494456!2d-10.8118776527391!3d6.313298211269848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sold%20cid%20road%2C%20mamba%20point%2C%20Liberia!5e0!3m2!1sen!2s!4v1714337318120!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+          </div>
+
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form  action="{% url 'submit_form' %}" method="post" role="form" class="php-email-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="email">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Add this if jQuery is not already included in your file -->
+<script>
+  $(document).ready(function () {
+    $(".php-email-form").on('submit', function(event) {
+      event.preventDefault();  // Prevent the form from being submitted normally
+      var formValues= $(this).serialize();
+
+      $.post("{% url 'submit_form' %}", formValues, function(data){
+        // This will be triggered only when the post has been successfully sent
+        // "data" will contain the response from the Django view
+        if (data.message) {
+          // At this point, we have successfully sent the email
+          // You can now inform the user the email has been sent or perform other actions
+          alert(data.message);  // Replace this with a more user-friendly message display
+        } else if (data.error) {
+          // If there is an error in our Django view, we will receive it here
+          alert(data.error);  // Replace this with a more user-friendly error display
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
+
+
+ /*
+ document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    fetch('{% url "submit_form" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())  // Convert the response to JSON
+    .then(data => {
+        if(data.status === 'success') {
+            alert('Message sent successfully!');
+        } else {
+            alert('Error sending message: ' + data.message);
+        }
+    })
+    .catch(error => alert('Error: ' + error));
+});
+*/
+
+
+def submit_form(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # Construct the email
+            full_message = f"Message from {name} ({email}):\n\n{message}"
+
+            try:
+                send_mail(
+                    subject=subject,
+                    message=full_message,
+                    from_email=email,  # The sender's email address
+                    recipient_list=[settings.CONTACT_EMAIL],  # Your email address
+                )
+                return redirect('submit_form')
+            except Exception as e:
+                logger.error(f"Error sending email: {e}")
+                messages.error(request, 'An error occurred while sending your message. Please try again.')
+                return render(request, 'myprofile/contact.html', {'form': form})
+        else:
+            messages.error(request, 'Form is not valid. Please check your inputs.')
+            return render(request, 'myprofile/contact.html', {'form': form})
+    else:
+        form = ContactForm()
+    return render(request, 'myprofile/contact.html', {'form': form})
+
+def contact_page(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            full_message = f"Message from {name} ({email}):\n\n{message}"
+
+            try:
+                send_mail(
+                    subject=subject,
+                    message=full_message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.CONTACT_EMAIL],
+                )
+                return redirect('thank_you')
+            except Exception as e:
+                logger.error(f"Error sending email: {e}")
+                messages.error(request, 'An error occurred while sending your message. Please try again.')
+        else:
+            messages.error(request, 'Form is not valid. Please check your inputs.')
+    else:
+        form = ContactForm()
+
+    return render(request, 'myprofile/contact.html', {'form': form})
+
+def thank_you(request):
+    return render(request, 'myprofile/thank.html')
+
+
+ <!-- File Upload Section -->
+    <section id="file-upload" class="file-upload">
+      <div class="container">
+        <div class="section-title">
+          <h2>Upload Your Resume</h2>
+          <p>Feel free to upload a PDF version of your resume for download.</p>
+        </div>
+        <form action="{% url 'upload_resume' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="resume">Upload Resume (PDF):</label>
+            <input type="file" id="resume" name="resume" accept="application/pdf" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+    </section><!-- End File Upload Section -->
+
+<!-- File Upload Section -->
+    <section id="file-upload" class="file-upload">
+      <div class="container">
+        <div class="section-title">
+          <h2>Upload Your Resume</h2>
+          <p>Feel free to upload a PDF version of your resume for download.</p>
+        </div>
+        <form action="{% url 'upload_resume' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="resume">Upload Resume (PDF):</label>
+            <input type="file" id="resume" name="resume" accept="application/pdf" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+    </section><!-- End File Upload Section -->
